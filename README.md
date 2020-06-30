@@ -2,7 +2,13 @@
 
 HLS文件包括一个或多个m3u8格式的索引文件以及多个ts格式的切片视频文件。迁移上s3时，通常会给定一些m3u8链接的list，根据m3u8索引文件获得所有ts文件的链接，并将所有m3u8和ts文件上传到aws s3。
 
-此文档描述使用python多线程脚本迁移到s3的步骤。
+日常经常用到的迁移工具包括[Amazon S3 断点续传工具](https://github.com/aws-samples/amazon-s3-resumable-upload)（支持本地上传S3，国内和海外S3互传，从阿里OSS迁移，支持多线程断点续传，适合传大文件）和[rclone](https://rclone.org/s3/)（支持s3, Dreamhost, IBM等主流云盘互传）等。
+
+此脚本解决了：
+1. 客户从一些小众云盘文件迁移到s3的需求
+2. 客户本地有web host server，需要迁移大批量ts文件上s3，但是不想采用snowball等传输方式的场景
+
+此python脚本使用多线程设计，可以充分利用带宽与内存，且设计了比对脚本，通过重新传输来解决因为源错误而导致的传输失败问题。此文档接下来将描述迁移到s3的步骤：
 
 # Prerequisite 前置要求 | 准备工作
 
