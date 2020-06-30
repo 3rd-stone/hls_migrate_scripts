@@ -1,17 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar 12 11:45:32 2020
-
-@author: chenlaws
-预安装库：requests, boto3
-需要验证未成功上传的list的话，跑一遍 check_error()函数即可
-
-modified 2020-03-24
-1. 增加对1000kb/hls/index.m3u8 的上传
-2. 404/502状态的文件不会上传，会记录链接给log文件
-"""
-
 import threading
 import queue
 import requests
@@ -81,14 +67,6 @@ def multi_thread(url, maxThreads, logger, bucket, prefix):
     
     t0 = download_and_upload(url, q, logger, bucket, prefix)
     t0.start()
-    
-    jpg_link = url.replace('index.m3u8','1.jpg')
-    t1 = download_and_upload(jpg_link, q, logger, bucket, prefix)
-    t1.start()
-    
-    xml_link = url.replace('index.m3u8','index.xml')
-    t2 = download_and_upload(xml_link, q, logger, bucket, prefix)
-    t2.start()
     
     for ts_link in get_all_ts_links(new_url):
         q.put(ts_link)
