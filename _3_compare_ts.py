@@ -69,17 +69,16 @@ class multi_compare(threading.Thread):
         '''
         根据url自动获得prefix + path
         '''
-        #new_url='https://video1.hsanhl.com/20190607/Cf7c0NAe/1000kb/hls/index.m3u8'
         end_1 = new_url.find('/',10)
         end_2 = new_url.find(':',10)
         if end_1 >0 and end_2>0:
             end = min(end_1, end_2)
         else:
             end = max(end_1,end_2)
-        prefix = new_url[new_url.find('//')+2:end].replace('.','-')+'/'    #'video1-hsanhl-com/'
+        prefix = new_url[new_url.find('//')+2:end].replace('.','-')+'/'    
         right = new_url.find('.m3u8')
         start = new_url.rfind('/',0,right)
-        path = new_url[new_url.find('/',10)+1:start+1]  #20190607/Cf7c0NAe/
+        path = new_url[new_url.find('/',10)+1:start+1] 
         return prefix, path
 
 
@@ -144,7 +143,7 @@ def main():
     #自修改信息区域--------------------
     my_bucket = s3.Bucket('test--20200310')
     txt_file = 'btt1.txt'
-    prefix = ''  # 最后需要带 "/", 如 "video-xxx-com/"
+    prefix = ''  # 最后需要带 "/", 如 "video/"
     maxThreads = 100
     #-------------------------------
     
