@@ -60,7 +60,7 @@ def multi_thread(url, maxThreads, logger, bucket, prefix):
         download = requests.get(url).text
         start    = download.rfind('\n')+1
         newlink  = download[start:]
-        new_url  = url[:url.find('index.m3u8')] + newlink  #'http://video2.youxijian.com:8091/20200305/40AEN3QJ/1000kb/hls/index.m3u8'
+        new_url  = url[:url.find('index.m3u8')] + newlink 
     
     t00 = download_and_upload(new_url, q, logger, bucket, prefix)
     t00.start()
