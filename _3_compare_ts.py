@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 23 11:00:56 2020
-
-@author: chenlaws
-
 modified 2020-03-24
 1. 增加index.m3u8后，ts文件夹内的s3总数量大1，即 get_s3_numbers = all_ts_numbers + 1
 2. 不相等的子文件夹路径会输出到 not_equal_ts.log
@@ -141,8 +137,8 @@ def main():
     tslogger = set_tslogger()
     
     #自修改信息区域--------------------
-    my_bucket = s3.Bucket('test--20200310')
-    txt_file = 'btt1.txt'
+    my_bucket = s3.Bucket('')
+    txt_file = ''
     prefix = ''  # 最后需要带 "/", 如 "video/"
     maxThreads = 100
     #-------------------------------
